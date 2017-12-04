@@ -16,7 +16,6 @@ class App extends React.Component {
         <h3> My Total Clap Count: {this.state.totalClapCount} </h3>
         <h3> My Clap Count: {this.state.clapsCount} </h3>
         <ClapComponent
-          totalCount={this.state.totalClapCount}
           popupClapCount={this.state.clapsCount}
           onChange={(newClapCount, diff) => {
             this.setState({

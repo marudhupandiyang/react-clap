@@ -8,7 +8,7 @@ class ClapComponent extends React.Component {
     super(props);
     this.state = {
       popupClapCount: props.popupClapCount,
-      totalClapCount: props.totalClapCount,
+      // totalClapCount: props.totalClapCount,
     };
 
     this.incrementClapCount = this.incrementClapCount.bind(this);
@@ -77,7 +77,7 @@ class ClapComponent extends React.Component {
     if (newState.popupClapCount > this.props.maxClapCount) {
       newState.popupClapCount = this.props.maxClapCount;
     } else {
-      newState.totalClapCount = this.state.totalClapCount + 1;
+      // newState.totalClapCount = this.state.totalClapCount + 1;
     }
 
     this.setState({
@@ -145,8 +145,7 @@ ClapComponent.defaultProps = {
   burstCirclesCount: 15,
   burstSpeed: 1.3,
   clapIncrementTimeout: 100,
-  popupClapCount: 0,
-  totalClapCount: 0,
+  // totalClapCount: 0,
   onChange: () => {},
 };
 
@@ -155,8 +154,8 @@ ClapComponent.propTypes = {
   burstCirclesCount: PropTypes.number,
   burstSpeed: PropTypes.number,
   clapIncrementTimeout: PropTypes.number,
-  popupClapCount: PropTypes.number,
-  totalClapCount: PropTypes.number,
+  popupClapCount: PropTypes.number.isRequired,
+  // totalClapCount: PropTypes.number,
   onChange: PropTypes.func,
 };
 
