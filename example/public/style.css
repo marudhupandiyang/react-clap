@@ -1,0 +1,15 @@
+* {
+  outline: none;
+}
+
+body {
+  background-color: ##fff;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 100px;
+}

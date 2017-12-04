@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Example | React CClap | Panther</title>
+    <link href="./style.css" rel="stylesheet" />
+    <style>
+      .desc-container {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      .github-fork-ribbon {
+        position: absolute;
+        background-color: #F76B1D;
+        color: #fff;
+        padding: 10px 5px;
+        width: 250px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .github-fork-ribbon.right-top {
+        top: 50px;
+        right: -60px;
+        transform: rotate(45deg);
+      }
+
+      a, a:hover, a:visited, a:focus {
+        text-decoration: none;
+        color: inherit;
+        font-weight: bold;
+      }
+
+    </style>
+  </head>
+  <body>
+    <a class="github-fork-ribbon right-top"
+      href="https://github.com/marudhupandiyang/react-clap"
+      title="Fork me on GitHub"
+      target="_blank">
+      Fork me on GitHub
+    </a>
+
+    <div class="desc-container">
+      <h2> React Clap component </h2>
+      <p>
+        Simple clone of <b>medium.com</b> clap button. Makes use of <a href="https://github.com/legomushroom/mojs" target="_blank">mo.js</a>
+      </p>
+    </div>
+    <div id="root"></div>
+    <script src="//cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
+  </body>
+</html>

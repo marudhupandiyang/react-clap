@@ -1,0 +1,60 @@
+$hover-color: green;
+
+.clap-container {
+  *:focus {
+    outline: none;
+  }
+
+  .clearfix { clear: both;}
+
+  button {
+    background: none;
+    border: none;
+    position: relative;
+    width: 72px;
+    height: 72px;
+  }
+
+  .user-clap-count {
+    background-color: $hover-color;
+    padding: 5px 8px;
+    color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 23px;
+    left: 23px;
+    z-index: 1001;
+    display: none;
+    
+    &.show {
+      display: block;
+    }
+   }
+
+  .clap-icon {
+    width: 40px;
+    height: 40px;
+    top: 0;
+    left: 0;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    z-index: 100;
+    
+    path {
+      fill: #fff;
+      stroke: #333;
+    }
+    
+    &:hover, &.clapped {
+      border-color: $hover-color;
+      cursor: pointer;
+      path {
+        stroke: $hover-color;
+        fill: $hover-color;
+      }
+    }
+  }
+}
