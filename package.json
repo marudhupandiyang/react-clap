@@ -1,6 +1,6 @@
 {
   "name": "react-clap",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "Simple clap component similar to one found on medium.com",
   "main": "dist/index.js",
   "scripts": {
