@@ -1,5 +1,6 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line
 import PropTypes from 'prop-types';
+import mojs from 'mo-js';
 
 import './style.scss';
 

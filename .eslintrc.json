@@ -6,7 +6,6 @@
     "plugins": ["class-property"],
     "parser": "babel-eslint",
     "globals": {
-      "mojs": true,
       "react": true
     }
 }

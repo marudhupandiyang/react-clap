@@ -49,6 +49,7 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
+    "mo-js": "^0.288.2"
   },
   "peerDependencies": {
     "prop-types": "^15.6.0",
