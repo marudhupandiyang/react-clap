@@ -1,12 +1,12 @@
 {
     "extends": "airbnb",
     "env": {
-        "browser": true,
-        "node": true
+        "browser": true
     },
     "plugins": ["class-property"],
     "parser": "babel-eslint",
     "globals": {
-      "mojs": true
+      "mojs": true,
+      "react": true
     }
 }

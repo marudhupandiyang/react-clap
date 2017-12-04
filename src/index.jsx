@@ -7,11 +7,11 @@ class ClapComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      popupClapCount: 0,
-      totalCount: 0,
+      popupClapCount: props.popupClapCount,
+      totalClapCount: props.totalClapCount,
     };
 
-    this.clap = this.clap.bind(this);
+    this.incrementClapCount = this.incrementClapCount.bind(this);
     this.startClapping = this.startClapping.bind(this);
   }
 
@@ -23,11 +23,14 @@ class ClapComponent extends React.Component {
       parent: this.clapContainer,
       count: this.props.burstCirclesCount,
       radius: { 10: 70 },
-      duration: 1,
       children: {
         shape: 'circle',
         fill: 'green',
         delay: 'stagger(7, 10)',
+        speed: this.props.burstSpeed,
+      },
+      timeline: {
+        repeat: Infinity,
       },
     });
 
@@ -35,13 +38,15 @@ class ClapComponent extends React.Component {
       parent: this.clapContainer,
       count: this.props.burstCirclesCount,
       radius: { 25: 75 },
-      duration: 1,
-      isShowEnd: false,
       children: {
         shape: 'polygon',
         fill: 'orange',
         degreeShift: 180,
         delay: 'stagger(7, 10)',
+        speed: this.props.burstSpeed,
+      },
+      timeline: {
+        repeat: Infinity,
       },
     });
 
@@ -60,9 +65,10 @@ class ClapComponent extends React.Component {
     );
   }
 
-  clap() {
-    this.polygonBurstMotion.play();
-    this.circleBurstMotion.play();
+  incrementClapCount() {
+    if (this.state.popupClapCount === this.props.maxClapCount) {
+      return;
+    }
 
     const newState = {
       popupClapCount: this.state.popupClapCount + 1,
@@ -71,7 +77,7 @@ class ClapComponent extends React.Component {
     if (newState.popupClapCount > this.props.maxClapCount) {
       newState.popupClapCount = this.props.maxClapCount;
     } else {
-      newState.totalCount = this.state.totalCount + 1;
+      newState.totalClapCount = this.state.totalClapCount + 1;
     }
 
     this.setState({
@@ -80,25 +86,38 @@ class ClapComponent extends React.Component {
   }
 
   startClapping() {
+    this.clapInterval = setInterval(() => {
+      this.incrementClapCount();
+    }, this.props.clapIncrementTimeout);
+
     this.setState({
       isClapping: true,
+    }, () => {
+      this.polygonBurstMotion.play();
+      this.circleBurstMotion.play();
+      this.clapCountMotion.play();
     });
-
-    this.clapCountMotion.play();
-    this.clapInterval = setInterval(() => {
-      this.clap();
-    }, 50);
   }
 
   stopClapping() {
     if (this.state.isClapping) {
-      this.clapCountMotion.replayBackward();
       clearInterval(this.clapInterval);
-      setTimeout(() => {
-        this.setState({
-          isClapping: false,
-        });
-      }, 400);
+      if (this.props.onChange) {
+        this.props.onChange(
+          this.state.popupClapCount,
+          (this.state.popupClapCount - this.props.popupClapCount),
+        );
+      }
+      this.polygonBurstMotion.stop();
+      this.circleBurstMotion.stop();
+      this.clapCountMotion.stop();
+      this.clapCountMotion.replayBackward();
+      this.polygonBurstMotion.generate();
+      this.circleBurstMotion.generate();
+
+      this.setState({
+        isClapping: false,
+      });
     }
   }
 
@@ -110,7 +129,7 @@ class ClapComponent extends React.Component {
           onMouseDown={() => { this.startClapping(); }}
           onMouseUp={() => { this.stopClapping(); }}
           onMouseOut={() => { this.stopClapping(); }}
-          onBlur={() => { this.stopClapping(); }}
+          onBlur={() => { /* this.stopClapping(); */ }}
         >
           {this.getSvgIcon(this.state.popupClapCount)}
           <span ref={(el) => { this.clapCount = el; }}className={`user-clap-count ${this.state.isClapping && 'show'}`}>{this.state.popupClapCount}</span>
@@ -124,11 +143,21 @@ class ClapComponent extends React.Component {
 ClapComponent.defaultProps = {
   maxClapCount: 50,
   burstCirclesCount: 15,
+  burstSpeed: 1.3,
+  clapIncrementTimeout: 100,
+  popupClapCount: 0,
+  totalClapCount: 0,
+  onChange: () => {},
 };
 
 ClapComponent.propTypes = {
   maxClapCount: PropTypes.number,
   burstCirclesCount: PropTypes.number,
+  burstSpeed: PropTypes.number,
+  clapIncrementTimeout: PropTypes.number,
+  popupClapCount: PropTypes.number,
+  totalClapCount: PropTypes.number,
+  onChange: PropTypes.func,
 };
 
 export default ClapComponent;
